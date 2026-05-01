@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from collections.abc import AsyncGenerator
 
@@ -39,6 +40,12 @@ def create_app() -> FastAPI:
     )
 
     # Middleware (registered in reverse — last added runs first)
+    app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
     app.add_middleware(RequestLoggingMiddleware)
 
     # Routers
